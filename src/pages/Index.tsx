@@ -37,7 +37,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient">
       <header className="w-full p-6 flex justify-between items-center z-20 relative">
-        <div className="font-bold text-xl text-radicalGreen-700">Radical-Zero</div>
+        <div className="font-bold text-xl">
+          <img 
+            src="https://www.radical-zero.com/wp-content/uploads/2023/11/radical_zero.png" 
+            alt="Radical-Zero Logo" 
+            className="h-10"
+          />
+        </div>
         <nav>
           <button 
             onClick={() => {
@@ -75,8 +81,16 @@ const Index = () => {
           
           {currentView === 'completion' && (
             <div className="form-container animate-slide-up text-center">
-              <div className="h-24 w-24 rounded-full bg-radicalGreen-100 flex items-center justify-center mx-auto mb-8">
-                <div className="h-16 w-16 rounded-full bg-radicalGreen-500 flex items-center justify-center">
+              <div className="mx-auto mb-6 w-48">
+                <img 
+                  src="https://www.radical-zero.com/wp-content/uploads/2023/11/radical_zero.png" 
+                  alt="Radical-Zero Logo" 
+                  className="w-full"
+                />
+              </div>
+              
+              <div className="h-24 w-24 rounded-full bg-radicalBlue-100 flex items-center justify-center mx-auto mb-8">
+                <div className="h-16 w-16 rounded-full bg-radicalBlue-500 flex items-center justify-center">
                   <div className="text-white text-4xl">✓</div>
                 </div>
               </div>
@@ -92,7 +106,7 @@ const Index = () => {
                   setCurrentView('hero');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="px-8 py-4 rounded-xl font-medium bg-radicalGreen-600 text-white hover:bg-radicalGreen-700 transition-colors shadow-md mx-auto"
+                className="px-8 py-4 rounded-xl font-medium bg-radicalBlue-600 text-white hover:bg-radicalBlue-700 transition-colors shadow-md mx-auto"
               >
                 Back to Home
               </button>

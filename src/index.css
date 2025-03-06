@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 145 40% 30%;
+    --primary: 217 60% 40%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -33,7 +33,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 145 40% 30%;
+    --ring: 217 60% 40%;
 
     --radius: 0.8rem;
 
@@ -133,16 +133,16 @@
   }
 
   .results-card {
-    @apply p-8 rounded-2xl glass-card bg-gradient-to-br from-radicalGreen-50 to-radicalBlue-50 border border-radicalGreen-100;
+    @apply p-8 rounded-2xl glass-card bg-gradient-to-br from-radicalBlue-50 to-radicalBlue-100 border border-radicalBlue-100;
   }
 
   .hero-pattern {
     background-color: #ffffff;
-    background-image: radial-gradient(#3c9742 0.5px, #ffffff 0.5px);
+    background-image: radial-gradient(#3d96e7 0.5px, #ffffff 0.5px);
     background-size: 20px 20px;
   }
 
   .bg-gradient {
-    @apply bg-gradient-to-br from-radicalGreen-50 via-white to-radicalBlue-50;
+    @apply bg-gradient-to-br from-radicalBlue-50 via-white to-radicalBlue-50;
   }
 }
