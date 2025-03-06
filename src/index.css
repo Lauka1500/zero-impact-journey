@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 145 40% 30%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -30,24 +33,17 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 145 40% 30%;
 
-    --radius: 0.5rem;
+    --radius: 0.8rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -61,7 +57,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
+    --primary: 145 40% 50%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -97,5 +93,56 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+
+  .form-container {
+    @apply w-full max-w-4xl p-8 rounded-2xl glass-card transition-all duration-500 ease-in-out mx-auto;
+  }
+
+  .form-step {
+    @apply animate-fade-in transition-opacity duration-500 ease-in-out;
+  }
+
+  .form-step.inactive {
+    @apply hidden;
+  }
+
+  .form-step.active {
+    @apply flex flex-col gap-6;
+  }
+
+  .form-title {
+    @apply text-3xl font-medium text-foreground mb-4;
+  }
+
+  .form-subtitle {
+    @apply text-lg text-muted-foreground mb-8;
+  }
+
+  .question-label {
+    @apply text-xl font-medium text-foreground mb-4;
+  }
+
+  .input-container {
+    @apply w-full rounded-xl bg-white border border-border p-4 focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-200;
+  }
+
+  .results-card {
+    @apply p-8 rounded-2xl glass-card bg-gradient-to-br from-radicalGreen-50 to-radicalBlue-50 border border-radicalGreen-100;
+  }
+
+  .hero-pattern {
+    background-color: #ffffff;
+    background-image: radial-gradient(#3c9742 0.5px, #ffffff 0.5px);
+    background-size: 20px 20px;
+  }
+
+  .bg-gradient {
+    @apply bg-gradient-to-br from-radicalGreen-50 via-white to-radicalBlue-50;
   }
 }
