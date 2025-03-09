@@ -21,7 +21,7 @@ const Hero = ({ onGetStarted }: HeroProps) => {
       <div className="relative z-10 max-w-5xl text-center animate-slide-down">
         <div className="mx-auto mb-8 w-80 bg-white/80 p-4 rounded-lg">
           <img 
-            src="https://www.radical-zero.com/wp-content/uploads/2023/11/radical_zero.png" 
+            src="/lovable-uploads/68ed5295-f319-4617-9268-139ff01c89b9.png" 
             alt="Radical-Zero Logo" 
             className="w-full"
           />

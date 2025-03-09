@@ -21,6 +21,7 @@ export interface CalculationResults {
   carbonCredits: number;
   financialValue: number;
   consumptionUnit: string;
+  newEnergySystem: string;
 }
 
 interface ConsumptionUnits {
@@ -36,6 +37,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
     currentConsumption: 0,
     projectedConsumption: 0,
     consumptionUnit: 'm³',
+    newEnergySystem: 'electricity',
   });
   
   const consumptionUnits: ConsumptionUnits = {
@@ -254,7 +256,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
       
       {/* Step 3: Heating System */}
       <div className={`form-step ${currentStep === 3 ? 'active' : 'inactive'}`}>
-        <h2 className="form-title">Heating System</h2>
+        <h2 className="form-title">Current Heating System</h2>
         <p className="form-subtitle">What is your current heating system?</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -348,16 +350,16 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
         </div>
       </div>
       
-      {/* Step 5: Projected Energy Consumption */}
+      {/* Step 5: Projected Energy Consumption after switching to electricity */}
       <div className={`form-step ${currentStep === 5 ? 'active' : 'inactive'}`}>
         <h2 className="form-title">Projected Energy Consumption</h2>
         <p className="form-subtitle">
-          What is your projected annual {formData.heatingSystem} consumption after improvements?
+          What is your projected annual electricity consumption after switching to an electric heat pump?
         </p>
         
         <div className="input-container p-6">
           <label htmlFor="projectedConsumption" className="block text-sm font-medium text-muted-foreground mb-2">
-            Projected Consumption ({formData.consumptionUnit}/year)
+            Projected Electricity Consumption (kWh/year)
           </label>
           <input
             type="number"
@@ -367,7 +369,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
             value={formData.projectedConsumption || ''}
             onChange={(e) => handleInputChange('projectedConsumption', Number(e.target.value))}
             className="w-full text-2xl font-medium focus:outline-none bg-transparent"
-            placeholder={`Enter projected consumption in ${formData.consumptionUnit}`}
+            placeholder="Enter projected electricity consumption in kWh"
           />
           
           {formData.projectedConsumption >= formData.currentConsumption && formData.projectedConsumption > 0 && (

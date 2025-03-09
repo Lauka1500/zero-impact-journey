@@ -45,7 +45,7 @@ const Index = () => {
       <header className="w-full p-6 flex justify-between items-center z-20 relative">
         <div className="font-bold text-xl">
           <img 
-            src="https://www.radical-zero.com/wp-content/uploads/2023/11/radical_zero.png" 
+            src="/lovable-uploads/68ed5295-f319-4617-9268-139ff01c89b9.png" 
             alt="Radical-Zero Logo" 
             className="h-10"
           />
@@ -86,7 +86,7 @@ const Index = () => {
             <div className="form-container animate-slide-up text-center">
               <div className="mx-auto mb-6 w-48">
                 <img 
-                  src="https://www.radical-zero.com/wp-content/uploads/2023/11/radical_zero.png" 
+                  src="/lovable-uploads/68ed5295-f319-4617-9268-139ff01c89b9.png" 
                   alt="Radical-Zero Logo" 
                   className="w-full"
                 />
@@ -121,7 +121,7 @@ const Index = () => {
       <footer className="w-full py-8 px-4 bg-white border-t border-gray-100">
         <div className="container mx-auto flex justify-between items-center">
           <p className="text-sm text-muted-foreground text-[12px]">
-            Radical Zero {new Date().getFullYear()}
+            Radical Zero 2025
           </p>
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Radical-Zero.com. All rights reserved.
