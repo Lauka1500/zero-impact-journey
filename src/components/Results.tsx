@@ -21,39 +21,39 @@ const Results = ({ results, onNext }: ResultsProps) => {
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
         <div className="results-card flex flex-col items-center text-center">
-          <div className="h-16 w-16 rounded-full bg-radicalGreen-100 flex items-center justify-center mb-4">
-            <div className="h-10 w-10 rounded-full bg-radicalGreen-500 flex items-center justify-center">
+          <div className="h-16 w-16 rounded-full bg-radicalBlue-100 flex items-center justify-center mb-4">
+            <div className="h-10 w-10 rounded-full bg-radicalBlue-500 flex items-center justify-center">
               <Check className="h-6 w-6 text-white" />
             </div>
           </div>
           <h3 className="text-xl font-medium mb-2">CO₂ Savings</h3>
-          <div className="text-4xl font-bold text-radicalGreen-700 mb-2">
+          <div className="text-4xl font-bold text-radicalBlue-700 mb-2">
             {formatNumber(results.co2Savings)}
           </div>
           <p className="text-muted-foreground">Tons of CO₂ per year</p>
         </div>
         
         <div className="results-card flex flex-col items-center text-center">
-          <div className="h-16 w-16 rounded-full bg-radicalGreen-100 flex items-center justify-center mb-4">
-            <div className="h-10 w-10 rounded-full bg-radicalGreen-500 flex items-center justify-center">
+          <div className="h-16 w-16 rounded-full bg-radicalBlue-100 flex items-center justify-center mb-4">
+            <div className="h-10 w-10 rounded-full bg-radicalBlue-500 flex items-center justify-center">
               <Check className="h-6 w-6 text-white" />
             </div>
           </div>
           <h3 className="text-xl font-medium mb-2">Carbon Credits</h3>
-          <div className="text-4xl font-bold text-radicalGreen-700 mb-2">
+          <div className="text-4xl font-bold text-radicalBlue-700 mb-2">
             {formatNumber(results.carbonCredits)}
           </div>
           <p className="text-muted-foreground">Credits (1:1 with CO₂)</p>
         </div>
         
         <div className="results-card flex flex-col items-center text-center">
-          <div className="h-16 w-16 rounded-full bg-radicalGreen-100 flex items-center justify-center mb-4">
-            <div className="h-10 w-10 rounded-full bg-radicalGreen-500 flex items-center justify-center">
+          <div className="h-16 w-16 rounded-full bg-radicalBlue-100 flex items-center justify-center mb-4">
+            <div className="h-10 w-10 rounded-full bg-radicalBlue-500 flex items-center justify-center">
               <Check className="h-6 w-6 text-white" />
             </div>
           </div>
           <h3 className="text-xl font-medium mb-2">Financial Value</h3>
-          <div className="text-4xl font-bold text-radicalGreen-700 mb-2">
+          <div className="text-4xl font-bold text-radicalBlue-700 mb-2">
             {formatCurrency(results.financialValue)}
           </div>
           <p className="text-muted-foreground">Potential market value</p>
@@ -78,7 +78,7 @@ const Results = ({ results, onNext }: ResultsProps) => {
           <div>
             <p className="text-sm text-muted-foreground">Energy Consumption Reduction</p>
             <p className="font-medium">
-              {formatNumber(results.currentConsumption - results.projectedConsumption)} kWh/year ({
+              {formatNumber(results.currentConsumption - results.projectedConsumption)} {results.consumptionUnit}/year ({
                 Math.round((1 - results.projectedConsumption / results.currentConsumption) * 100)
               }%)
             </p>
@@ -88,12 +88,12 @@ const Results = ({ results, onNext }: ResultsProps) => {
       
       <div className="text-center">
         <p className="mb-6 text-muted-foreground">
-          Continue to provide your contact information and learn how to monetize your carbon credits.
+          Thank you for using our carbon savings calculator.
         </p>
         <button
           onClick={onNext}
-          className="px-8 py-4 rounded-xl font-medium bg-radicalGreen-600 text-white 
-                    hover:bg-radicalGreen-700 transition-colors shadow-md flex items-center 
+          className="px-8 py-4 rounded-xl font-medium bg-radicalBlue-600 text-white 
+                    hover:bg-radicalBlue-700 transition-colors shadow-md flex items-center 
                     gap-2 mx-auto"
         >
           Continue <ChevronRight className="h-5 w-5" />

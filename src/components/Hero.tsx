@@ -19,7 +19,7 @@ const Hero = ({ onGetStarted }: HeroProps) => {
       <div className="absolute inset-0 bg-white/70 backdrop-blur-sm z-0"></div>
       
       <div className="relative z-10 max-w-5xl text-center animate-slide-down">
-        <div className="mx-auto mb-6 w-64">
+        <div className="mx-auto mb-8 w-80 bg-white/80 p-4 rounded-lg">
           <img 
             src="https://www.radical-zero.com/wp-content/uploads/2023/11/radical_zero.png" 
             alt="Radical-Zero Logo" 

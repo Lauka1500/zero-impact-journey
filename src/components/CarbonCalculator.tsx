@@ -20,6 +20,11 @@ export interface CalculationResults {
   co2Savings: number;
   carbonCredits: number;
   financialValue: number;
+  consumptionUnit: string;
+}
+
+interface ConsumptionUnits {
+  [key: string]: string;
 }
 
 const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
@@ -30,7 +35,23 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
     heatingSystem: 'gas',
     currentConsumption: 0,
     projectedConsumption: 0,
+    consumptionUnit: 'm³',
   });
+  
+  const consumptionUnits: ConsumptionUnits = {
+    'gas': 'm³',
+    'oil': 'liters',
+    'pellet': 'kg',
+    'other': 'kWh',
+  };
+  
+  useEffect(() => {
+    // Update consumption unit when heating system changes
+    setFormData(prev => ({
+      ...prev,
+      consumptionUnit: consumptionUnits[prev.heatingSystem]
+    }));
+  }, [formData.heatingSystem]);
   
   const formRef = useRef<HTMLDivElement>(null);
   
@@ -108,9 +129,9 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
               key={step}
               className={`h-2 rounded-full transition-all duration-500 flex-1 mx-1 ${
                 step === currentStep
-                  ? 'bg-radicalGreen-500'
+                  ? 'bg-radicalBlue-500'
                   : step < currentStep
-                  ? 'bg-radicalGreen-300'
+                  ? 'bg-radicalBlue-300'
                   : 'bg-gray-200'
               }`}
             />
@@ -130,7 +151,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
           <div
             className={`input-container cursor-pointer flex items-center p-6 ${
               formData.ownershipType === 'owner'
-                ? 'ring-2 ring-radicalGreen-500 border-radicalGreen-200'
+                ? 'ring-2 ring-radicalBlue-500 border-radicalBlue-200'
                 : ''
             }`}
             onClick={() => handleInputChange('ownershipType', 'owner')}
@@ -139,7 +160,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-medium">Building Owner</h3>
                 {formData.ownershipType === 'owner' && (
-                  <div className="h-6 w-6 rounded-full bg-radicalGreen-500 flex items-center justify-center">
+                  <div className="h-6 w-6 rounded-full bg-radicalBlue-500 flex items-center justify-center">
                     <Check className="h-4 w-4 text-white" />
                   </div>
                 )}
@@ -153,7 +174,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
           <div
             className={`input-container cursor-pointer flex items-center p-6 ${
               formData.ownershipType === 'tenant'
-                ? 'ring-2 ring-radicalGreen-500 border-radicalGreen-200'
+                ? 'ring-2 ring-radicalBlue-500 border-radicalBlue-200'
                 : ''
             }`}
             onClick={() => handleInputChange('ownershipType', 'tenant')}
@@ -162,7 +183,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-medium">Tenant</h3>
                 {formData.ownershipType === 'tenant' && (
-                  <div className="h-6 w-6 rounded-full bg-radicalGreen-500 flex items-center justify-center">
+                  <div className="h-6 w-6 rounded-full bg-radicalBlue-500 flex items-center justify-center">
                     <Check className="h-4 w-4 text-white" />
                   </div>
                 )}
@@ -180,7 +201,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
             disabled={!validateCurrentStep()}
             className={`px-6 py-3 rounded-xl font-medium flex items-center gap-2 ${
               validateCurrentStep()
-                ? 'bg-radicalGreen-600 text-white hover:bg-radicalGreen-700 transition-colors'
+                ? 'bg-radicalBlue-600 text-white hover:bg-radicalBlue-700 transition-colors'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
@@ -222,7 +243,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
             disabled={!validateCurrentStep()}
             className={`px-6 py-3 rounded-xl font-medium flex items-center gap-2 ${
               validateCurrentStep()
-                ? 'bg-radicalGreen-600 text-white hover:bg-radicalGreen-700 transition-colors'
+                ? 'bg-radicalBlue-600 text-white hover:bg-radicalBlue-700 transition-colors'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
@@ -242,7 +263,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
               key={type}
               className={`input-container cursor-pointer flex items-center p-6 ${
                 formData.heatingSystem === type
-                  ? 'ring-2 ring-radicalGreen-500 border-radicalGreen-200'
+                  ? 'ring-2 ring-radicalBlue-500 border-radicalBlue-200'
                   : ''
               }`}
               onClick={() => handleInputChange('heatingSystem', type)}
@@ -251,7 +272,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-medium capitalize">{type}</h3>
                   {formData.heatingSystem === type && (
-                    <div className="h-6 w-6 rounded-full bg-radicalGreen-500 flex items-center justify-center">
+                    <div className="h-6 w-6 rounded-full bg-radicalBlue-500 flex items-center justify-center">
                       <Check className="h-4 w-4 text-white" />
                     </div>
                   )}
@@ -274,7 +295,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
             disabled={!validateCurrentStep()}
             className={`px-6 py-3 rounded-xl font-medium flex items-center gap-2 ${
               validateCurrentStep()
-                ? 'bg-radicalGreen-600 text-white hover:bg-radicalGreen-700 transition-colors'
+                ? 'bg-radicalBlue-600 text-white hover:bg-radicalBlue-700 transition-colors'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
@@ -286,11 +307,13 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
       {/* Step 4: Current Energy Consumption */}
       <div className={`form-step ${currentStep === 4 ? 'active' : 'inactive'}`}>
         <h2 className="form-title">Current Energy Consumption</h2>
-        <p className="form-subtitle">What is your current annual energy consumption (excluding solar PV)?</p>
+        <p className="form-subtitle">
+          What is your current annual energy consumption for {formData.heatingSystem}?
+        </p>
         
         <div className="input-container p-6">
           <label htmlFor="currentConsumption" className="block text-sm font-medium text-muted-foreground mb-2">
-            Current Consumption (kWh/year)
+            Current Consumption ({formData.consumptionUnit}/year)
           </label>
           <input
             type="number"
@@ -299,7 +322,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
             value={formData.currentConsumption || ''}
             onChange={(e) => handleInputChange('currentConsumption', Number(e.target.value))}
             className="w-full text-2xl font-medium focus:outline-none bg-transparent"
-            placeholder="Enter current consumption"
+            placeholder={`Enter current consumption in ${formData.consumptionUnit}`}
           />
         </div>
         
@@ -316,7 +339,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
             disabled={!validateCurrentStep()}
             className={`px-6 py-3 rounded-xl font-medium flex items-center gap-2 ${
               validateCurrentStep()
-                ? 'bg-radicalGreen-600 text-white hover:bg-radicalGreen-700 transition-colors'
+                ? 'bg-radicalBlue-600 text-white hover:bg-radicalBlue-700 transition-colors'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
@@ -328,11 +351,13 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
       {/* Step 5: Projected Energy Consumption */}
       <div className={`form-step ${currentStep === 5 ? 'active' : 'inactive'}`}>
         <h2 className="form-title">Projected Energy Consumption</h2>
-        <p className="form-subtitle">What is your projected annual energy consumption after improvements?</p>
+        <p className="form-subtitle">
+          What is your projected annual {formData.heatingSystem} consumption after improvements?
+        </p>
         
         <div className="input-container p-6">
           <label htmlFor="projectedConsumption" className="block text-sm font-medium text-muted-foreground mb-2">
-            Projected Consumption (kWh/year)
+            Projected Consumption ({formData.consumptionUnit}/year)
           </label>
           <input
             type="number"
@@ -342,7 +367,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
             value={formData.projectedConsumption || ''}
             onChange={(e) => handleInputChange('projectedConsumption', Number(e.target.value))}
             className="w-full text-2xl font-medium focus:outline-none bg-transparent"
-            placeholder="Enter projected consumption"
+            placeholder={`Enter projected consumption in ${formData.consumptionUnit}`}
           />
           
           {formData.projectedConsumption >= formData.currentConsumption && formData.projectedConsumption > 0 && (
@@ -365,7 +390,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
             disabled={!validateCurrentStep()}
             className={`px-6 py-3 rounded-xl font-medium flex items-center gap-2 ${
               validateCurrentStep()
-                ? 'bg-radicalGreen-600 text-white hover:bg-radicalGreen-700 transition-colors'
+                ? 'bg-radicalBlue-600 text-white hover:bg-radicalBlue-700 transition-colors'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >

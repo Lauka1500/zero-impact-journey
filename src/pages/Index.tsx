@@ -7,7 +7,7 @@ import ContactForm, { type ContactFormData } from '../components/ContactForm';
 import { toast } from 'sonner';
 
 const Index = () => {
-  const [currentView, setCurrentView] = useState<'hero' | 'calculator' | 'results' | 'contact' | 'completion'>('hero');
+  const [currentView, setCurrentView] = useState<'hero' | 'calculator' | 'contact' | 'results' | 'completion'>('hero');
   const [calculationResults, setCalculationResults] = useState<CalculationResults | null>(null);
   const calculatorRef = useRef<HTMLDivElement>(null);
   
@@ -20,7 +20,7 @@ const Index = () => {
   
   const handleCalculationComplete = (results: CalculationResults) => {
     setCalculationResults(results);
-    setCurrentView('results');
+    setCurrentView('contact');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   
@@ -29,6 +29,12 @@ const Index = () => {
     console.log('Contact form submitted:', contactData);
     console.log('Calculation results:', calculationResults);
     
+    // Now show results after contact form
+    setCurrentView('results');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  
+  const handleViewCompletion = () => {
     setCurrentView('completion');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     toast.success('Thank you for your submission!');
@@ -65,18 +71,15 @@ const Index = () => {
             <CarbonCalculator onComplete={handleCalculationComplete} />
           )}
           
+          {currentView === 'contact' && calculationResults && (
+            <ContactForm onSubmit={handleContactSubmit} />
+          )}
+          
           {currentView === 'results' && calculationResults && (
             <Results 
               results={calculationResults} 
-              onNext={() => {
-                setCurrentView('contact');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }} 
+              onNext={handleViewCompletion} 
             />
-          )}
-          
-          {currentView === 'contact' && (
-            <ContactForm onSubmit={handleContactSubmit} />
           )}
           
           {currentView === 'completion' && (
@@ -116,7 +119,10 @@ const Index = () => {
       </main>
       
       <footer className="w-full py-8 px-4 bg-white border-t border-gray-100">
-        <div className="container mx-auto text-center">
+        <div className="container mx-auto flex justify-between items-center">
+          <p className="text-sm text-muted-foreground text-[12px]">
+            Radical Zero {new Date().getFullYear()}
+          </p>
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Radical-Zero.com. All rights reserved.
           </p>

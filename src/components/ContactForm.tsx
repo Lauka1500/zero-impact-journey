@@ -63,9 +63,9 @@ const ContactForm = ({ onSubmit }: ContactFormProps) => {
             className="w-full"
           />
         </div>
-        <h2 className="text-3xl font-bold mb-4">Almost There!</h2>
+        <h2 className="text-3xl font-bold mb-4">Your Information</h2>
         <p className="text-lg text-muted-foreground">
-          Provide your contact information to receive details about your carbon credits
+          Please provide your contact details before viewing your carbon credit results
         </p>
       </div>
       
@@ -174,7 +174,7 @@ const ContactForm = ({ onSubmit }: ContactFormProps) => {
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
-            Submit Information
+            Continue to See Results
           </button>
         </div>
       </form>
