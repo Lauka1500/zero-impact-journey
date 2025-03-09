@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Check, ChevronRight, ChevronLeft } from 'lucide-react';
 import { 
   calculateCO2Savings, 
   calculateCarbonCredits, 
-  calculateFinancialValue
+  calculateFinancialValue,
+  convertToKWh
 } from '../utils/calculationUtils';
 
 interface CarbonCalculatorProps {
@@ -48,7 +48,6 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
   };
   
   useEffect(() => {
-    // Update consumption unit when heating system changes
     setFormData(prev => ({
       ...prev,
       consumptionUnit: consumptionUnits[prev.heatingSystem]
@@ -57,7 +56,6 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
   
   const formRef = useRef<HTMLDivElement>(null);
   
-  // Scroll to top of form when step changes
   useEffect(() => {
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -92,11 +90,7 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
       case 4:
         return !!formData.currentConsumption && formData.currentConsumption > 0;
       case 5:
-        return (
-          !!formData.projectedConsumption &&
-          formData.projectedConsumption >= 0 &&
-          formData.projectedConsumption < formData.currentConsumption
-        );
+        return !!formData.projectedConsumption && formData.projectedConsumption >= 0;
       default:
         return true;
     }
@@ -365,18 +359,11 @@ const CarbonCalculator = ({ onComplete }: CarbonCalculatorProps) => {
             type="number"
             id="projectedConsumption"
             min="0"
-            max={formData.currentConsumption - 1}
             value={formData.projectedConsumption || ''}
             onChange={(e) => handleInputChange('projectedConsumption', Number(e.target.value))}
             className="w-full text-2xl font-medium focus:outline-none bg-transparent"
             placeholder="Enter projected electricity consumption in kWh"
           />
-          
-          {formData.projectedConsumption >= formData.currentConsumption && formData.projectedConsumption > 0 && (
-            <p className="text-sm text-red-500 mt-2">
-              Projected consumption must be less than current consumption.
-            </p>
-          )}
         </div>
         
         <div className="flex justify-between mt-8">

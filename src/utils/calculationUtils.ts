@@ -7,8 +7,24 @@ export const emissionFactors = {
   other: 0.15, // kg CO2 per kWh (average)
 };
 
+// Conversion factors to kWh
+export const conversionFactors = {
+  gas: 10, // 1 m³ of natural gas ≈ 10 kWh
+  oil: 10.5, // 1 liter of heating oil ≈ 10.5 kWh
+  pellet: 4.9, // 1 kg of wood pellets ≈ 4.9 kWh
+  other: 1, // already in kWh
+};
+
 // Carbon credit value in EUR per ton of CO2
 export const carbonCreditValue = 50;
+
+// Convert original fuel consumption to kWh
+export const convertToKWh = (
+  fuelType: keyof typeof conversionFactors,
+  amount: number
+): number => {
+  return amount * conversionFactors[fuelType];
+};
 
 // Calculate CO2 savings based on input data
 export const calculateCO2Savings = (
@@ -16,11 +32,16 @@ export const calculateCO2Savings = (
   oldConsumption: number,
   newConsumption: number
 ): number => {
-  const emissionFactor = emissionFactors[oldSystem];
+  // Convert old consumption to kWh first
+  const oldConsumptionInKWh = convertToKWh(oldSystem, oldConsumption);
   
   // Calculate CO2 emissions in tons (converting from kg)
-  const oldEmissions = (oldConsumption * emissionFactor) / 1000;
-  const newEmissions = (newConsumption * emissionFactor) / 1000;
+  const oldEmissions = (oldConsumptionInKWh * emissionFactors[oldSystem]) / 1000;
+  
+  // For new consumption (electricity), use average emission factor
+  // The emission factor for electricity varies by country and energy mix
+  const electricityEmissionFactor = 0.25; // kg CO2 per kWh (example value, can be adjusted)
+  const newEmissions = (newConsumption * electricityEmissionFactor) / 1000;
   
   // Calculate savings (tons of CO2)
   return Math.max(0, oldEmissions - newEmissions);

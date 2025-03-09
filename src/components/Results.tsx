@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { type CalculationResults } from './CarbonCalculator';
-import { formatNumber, formatCurrency } from '../utils/calculationUtils';
+import { formatNumber, formatCurrency, conversionFactors } from '../utils/calculationUtils';
 import { Check, ChevronRight } from 'lucide-react';
 
 interface ResultsProps {
@@ -10,6 +10,14 @@ interface ResultsProps {
 }
 
 const Results = ({ results, onNext }: ResultsProps) => {
+  // Calculate the original energy consumption in kWh
+  const originalConsumptionInKWh = results.currentConsumption * conversionFactors[results.heatingSystem];
+  
+  // Calculate the percentage reduction
+  const reductionPercentage = Math.round(
+    (1 - results.projectedConsumption / originalConsumptionInKWh) * 100
+  );
+
   return (
     <div className="form-container animate-slide-up">
       <div className="text-center mb-10">
@@ -72,15 +80,16 @@ const Results = ({ results, onNext }: ResultsProps) => {
             <p className="font-medium">{results.buildingSize} m²</p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Heating System</p>
+            <p className="text-sm text-muted-foreground">Original Heating System</p>
             <p className="font-medium capitalize">{results.heatingSystem}</p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Energy Consumption Reduction</p>
+            <p className="text-sm text-muted-foreground">Energy Consumption</p>
             <p className="font-medium">
-              {formatNumber(results.currentConsumption - results.projectedConsumption)} {results.consumptionUnit}/year ({
-                Math.round((1 - results.projectedConsumption / results.currentConsumption) * 100)
-              }%)
+              From {formatNumber(results.currentConsumption)} {results.consumptionUnit} 
+              {" → "} 
+              {formatNumber(results.projectedConsumption)} kWh (electricity)
+              {reductionPercentage > 0 ? ` (${reductionPercentage}% reduction)` : ''}
             </p>
           </div>
         </div>
