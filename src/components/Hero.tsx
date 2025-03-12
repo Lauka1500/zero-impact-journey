@@ -30,8 +30,8 @@ const Hero = ({ onGetStarted }: HeroProps) => {
           Measure, Reduce, Monetize
         </div>
         <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-          Transform Your Energy Savings into 
-          <span className="text-radicalBlue-600"> Carbon Credits</span>
+          Transform Your Energy Savings<br />
+          <span className="text-radicalBlue-600">into Carbon Credits</span>
         </h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
           Discover how your energy efficiency upgrades can reduce CO2 emissions and generate 
